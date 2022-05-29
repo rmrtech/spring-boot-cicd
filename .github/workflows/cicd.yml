@@ -25,15 +25,11 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-    - name: Set up custom Artifactory instance
-      uses: actions/setup-java@v3
-      with: # running setup-java again overwrites the settings.xml
-        java-version: 17
-        distribution: 'temurin'
-        server-id: artifactory-releases
-        server-username: rmrtechrd@gmail.com
-        server-password: eyJ2ZXIiOiIyIiwidHlwIjoiSldUIiwiYWxnIjoiUlMyNTYiLCJraWQiOiJqVGQwWnVpeDB6NXo4UGxYMlFZcXlFc3hhRUd4aUlXc2NYU2hJaUdnMUEwIn0.eyJleHQiOiJ7XCJyZXZvY2FibGVcIjpcInRydWVcIn0iLCJzdWIiOiJqZmFjQDAxZzN3ZGJyM3F5ZTRhMHpiamNyeHAwZjVuXC91c2Vyc1wvcm1ydGVjaHJkQGdtYWlsLmNvbSIsInNjcCI6ImFwcGxpZWQtcGVybWlzc2lvbnNcL3VzZXIiLCJhdWQiOlsiamZydEAqIiwiamZhY0AqIiwiamZldnRAKiIsImpmbWRAKiIsImpmY29uQCoiXSwiaXNzIjoiamZmZUAwMDAiLCJleHAiOjE2ODUzMDEwNDksImlhdCI6MTY1Mzc2NTA0OSwianRpIjoiNjNmNjc2MTQtZTNhNy00YjY4LWI1ZTUtYjA5NzlhY2RiNmY0In0.cBQ8ChZ1hgRDZC5bXcP47GujbWJKOjLyKnYmSxC8oORCY9GJ9MVgbvNCtQc92w8J4_dpu8ayzfI1ag9EHu2rOeAsl9JZbGoSv6GYx1iZ2EGSkZhnKgxnMC4J4nHHD903HRT8JqC8K9FGBYooX1jJQfbsMnW8G8OMPsNK0B09bAp7D-yPCaflE80VQt1puzKklh1Z5t0vLKMOkOmJVFH3OCOJMfWDvQ8shX5TrpFt1SXzt_Zd1TDs4KvaaQrAsUwszIYDcXsY6VK41LtoP8DkPRQM9UnFkN9hZ88hJsihIiKPQVL1TJqoLsgop42PynYMs11uI6S5FfGap_kTGkqylg
-    
+    - name: maven-settings-xml-action
+      uses: whelk-io/maven-settings-xml-action@v20
+      with:
+        servers: '[{ "id": "artifactory-releases", "username": ${{ env.ARTIFACTORY_USERNAME }}, "password": ${{ secrets.ARTIFACTORY_TOKEN }} }]'
+        
     - name: Read settings file
       id: read_file
       uses: andstor/file-reader-action@v1
@@ -41,10 +37,10 @@ jobs:
         path: "/home/runner/.m2/settings.xml"
 
     - name: Settings content
-      run: echo "${{ steps.read_file.outputs.contents }}"
+      run: echo "${{ steps.read_file.outputs.content }}"
         
     - name: Build with Maven
       run: mvn -B clean package
       
     - name: Publish with Maven
-      run: mvn --settings /home/runner/.m2/settings.xml deploy -Dmaven.test.skip=true
+      run: mvn deploy -Dmaven.test.skip=true
