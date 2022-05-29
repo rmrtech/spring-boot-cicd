@@ -28,7 +28,7 @@ jobs:
     - name: maven-settings-xml-action
       uses: whelk-io/maven-settings-xml-action@v20
       with:
-        servers: '[{ "id": "artifactory-releases", "username": ${{ env.ARTIFACTORY_USERNAME }}, "password": ${{ secrets.ARTIFACTORY_TOKEN }} }]'
+        servers: '[{ "id": "artifactory-releases", "username": "${{ env.ARTIFACTORY_USERNAME }}", "password": "${{ secrets.ARTIFACTORY_TOKEN }}" }]'
         
     - name: Read settings file
       id: read_file
