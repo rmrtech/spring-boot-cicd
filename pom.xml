@@ -62,29 +62,18 @@
 
     <distributionManagement>
         <repository>
-            <id>central</id>
+            <id>artifactory-releases</id>
             <name>a0ixdccunspa7-artifactory-primary-0-releases</name>
             <url>https://rmrtechrd.jfrog.io/artifactory/default-maven-virtual</url>
         </repository>
-        <snapshotRepository>
-            <id>snapshots</id>
-            <name>a0ixdccunspa7-artifactory-primary-0-snapshots</name>
-            <url>https://rmrtechrd.jfrog.io/artifactory/default-maven-virtual</url>
-        </snapshotRepository>
     </distributionManagement>
 
     <repositories>
         <repository>
             <snapshots>
-                <enabled>false</enabled>
+                <enabled>true</enabled>
             </snapshots>
-            <id>central</id>
-            <name>default-maven-virtual</name>
-            <url>https://rmrtechrd.jfrog.io/artifactory/default-maven-virtual</url>
-        </repository>
-        <repository>
-            <snapshots />
-            <id>snapshots</id>
+            <id>artifactory</id>
             <name>default-maven-virtual</name>
             <url>https://rmrtechrd.jfrog.io/artifactory/default-maven-virtual</url>
         </repository>
@@ -101,15 +90,9 @@
     <pluginRepositories>
         <pluginRepository>
             <snapshots>
-                <enabled>false</enabled>
+                <enabled>true</enabled>
             </snapshots>
-            <id>central</id>
-            <name>default-maven-virtual</name>
-            <url>https://rmrtechrd.jfrog.io/artifactory/default-maven-virtual</url>
-        </pluginRepository>
-        <pluginRepository>
-            <snapshots />
-            <id>snapshots</id>
+            <id>artifactory-plugins</id>
             <name>default-maven-virtual</name>
             <url>https://rmrtechrd.jfrog.io/artifactory/default-maven-virtual</url>
         </pluginRepository>
