@@ -38,4 +38,4 @@ jobs:
       run: mvn -B clean package
       
     - name: Publish with Maven
-      run: mvn deploy -Dmaven.test.skip=true
+      run: mvn --settings /home/runner/.m2/settings.xml deploy -Dmaven.test.skip=true
